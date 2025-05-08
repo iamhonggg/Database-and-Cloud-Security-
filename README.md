@@ -7,6 +7,7 @@
 3. Put all the code inside your XAMPP file. [XAMPP -> htdocs -> cinema_booking] (The cinema_booking file we need to create ourself)
 
 ## **Trying out the code**
-1. Run the login.html by typing "http://localhost/cinema_booking/login.html" in the web browser. ![image](https://github.com/user-attachments/assets/911505fe-538a-40dd-8311-98759416afc0)
+1. Run the login.html by typing "http://localhost/cinema-booking/login.html" in the web browser. ![image](https://github.com/user-attachments/assets/b5de879a-485c-4f75-a650-551bccd6d353)
+
 
 
