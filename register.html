@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - Cinema Booking System</title>
+    <title>Register - Cinema Booking System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             margin: 0;
         }
 
-        .login-container {
+        .register-container {
             background: #2c2c2c;
             padding: 30px 40px;
             border-radius: 12px;
@@ -22,20 +22,20 @@
             width: 300px;
         }
 
-        .login-container h2 {
+        .register-container h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #f0db4f;
         }
 
-        .login-container label {
+        .register-container label {
             font-size: 14px;
             display: block;
             margin-bottom: 6px;
         }
 
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        .register-container input[type="text"],
+        .register-container input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -45,7 +45,7 @@
             color: #fff;
         }
 
-        .login-container input[type="submit"] {
+        .register-container input[type="submit"] {
             width: 100%;
             padding: 10px;
             background: #f0db4f;
@@ -56,43 +56,23 @@
             color: #000;
         }
 
-        .login-container input[type="submit"]:hover {
+        .register-container input[type="submit"]:hover {
             background: #e5c945;
-        }
-
-        /* Add some spacing for the Register link */
-        .register-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .register-link a {
-            color: #f0db4f;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Cinema Booking Login</h2>
-        <form action="login.php" method="POST">
+    <div class="register-container">
+        <h2>Create Account</h2>
+        <form action="register.php" method="POST">
             <label>Username:</label>
             <input type="text" name="username" required>
 
             <label>Password:</label>
             <input type="password" name="password" required>
 
-            <input type="submit" value="Login">
+            <input type="submit" value="Register">
         </form>
-
-        <!-- Register Link -->
-        <div class="register-link">
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
-        </div>
     </div>
 </body>
 </html>
