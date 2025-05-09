@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (isset($_GET['timeout']) && $_GET['timeout'] == 1) {
+    echo "<p style='color: red; text-align: center;'>Session expired due to inactivity. Please log in again.</p>";
+}
+
 $conn = new mysqli("localhost", "root", "", "cinema_booking");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,12 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Store user session
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
 
-        // Redirect based on user role
         if ($_SESSION['role'] == 'customer') {
             header("Location: customer_dashboard.php");
             exit();

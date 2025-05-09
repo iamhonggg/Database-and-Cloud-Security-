@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-// Check if the user is logged in and is a customer
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'customer') {
-    // Redirect to login page if the user is not logged in or is not a customer
-    header("Location: login.html");
     exit();
 }
 
-// Connect to the database
+
 $host = 'localhost';
-$db = 'cinema_db';  // Change to your actual DB name
+$db = 'cinema_booking';  
 $user = 'root';
 $pass = '';
 $conn = new mysqli($host, $user, $pass, $db);
@@ -19,12 +16,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all movies available for booking
-$sqlMovies = "SELECT * FROM movies";  // Make sure you have a movies table
+$sqlMovies = "SELECT * FROM movies";  
 $resultMovies = $conn->query($sqlMovies);
 
-// Fetch current user's bookings
-$sqlBookings = "SELECT * FROM bookings WHERE user_id = ?";  // Assume you have a bookings table
+$sqlBookings = "SELECT * FROM bookings WHERE user_id = ?";  
 $stmtBookings = $conn->prepare($sqlBookings);
 $stmtBookings->bind_param("i", $_SESSION['user_id']);
 $stmtBookings->execute();
@@ -36,7 +31,7 @@ $resultBookings = $stmtBookings->get_result();
 <head>
     <title>Customer Dashboard</title>
     <style>
-        /* Add your styling here */
+        
     </style>
 </head>
 <body>

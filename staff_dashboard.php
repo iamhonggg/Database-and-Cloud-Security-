@@ -1,5 +1,16 @@
 <?php
 session_start();
+
+define('SESSION_TIMEOUT', 300);
+
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > SESSION_TIMEOUT)) {
+    session_unset();     
+    session_destroy();   
+    header("Location: login.php?timeout=1"); 
+    exit();
+}
+$_SESSION['LAST_ACTIVITY'] = time(); 
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff') {
     echo "Access denied.";
     exit();

@@ -9,11 +9,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Sanitize and hash input
+
 $username = htmlspecialchars($_POST['username']);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-// Insert into users table
+
 $sql = "INSERT INTO users (username, password, role) VALUES (?, ?, 'customer')";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $username, $password);

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Check if the user is logged in as a customer
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'customer') {
     header("Location: login.php");
     exit();
@@ -9,11 +9,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'customer') {
 
 $conn = new mysqli("localhost", "root", "", "cinema_booking");
 
-// Fetch available movies from the database
+
 $sql = "SELECT * FROM movies";
 $result = $conn->query($sql);
 
-// Fetch the customer's own bookings
+
 $user_id = $_SESSION['user_id'];
 $booking_sql = "SELECT b.booking_id, m.movie_name, m.showtime, m.duration
                 FROM bookings b
@@ -128,7 +128,7 @@ $bookings_result = $booking_stmt->get_result();
         <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
         <p>Here are the available movies you can book:</p>
 
-        <!-- Display available movies -->
+       
         <div class="movie-list">
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($movie = $result->fetch_assoc()): ?>
@@ -149,7 +149,7 @@ $bookings_result = $booking_stmt->get_result();
             <?php endif; ?>
         </div>
 
-        <!-- Display customer's current bookings -->
+        
         <div class="booking-list">
             <h2>Your Bookings</h2>
             <?php if ($bookings_result->num_rows > 0): ?>

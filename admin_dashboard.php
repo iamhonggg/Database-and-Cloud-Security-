@@ -1,7 +1,16 @@
 <?php
 session_start();
 
-// Check if the user is logged in as an admin
+define('SESSION_TIMEOUT', 300);
+
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > SESSION_TIMEOUT)) {
+    session_unset();     
+    session_destroy();   
+    header("Location: login.php?timeout=1"); 
+    exit();
+}
+$_SESSION['LAST_ACTIVITY'] = time(); 
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "Access denied.";
     exit();
@@ -19,7 +28,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
-            position: relative; /* Make sure the body is relative to position elements inside */
+            position: relative; 
         }
 
         .container {
@@ -95,7 +104,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     <div class="container">
         <div class="header-container">
             <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-            <p>Your admin dashboard is ready to manage movies and bookings.</p>
+            <p>Your admin dashboard is ready to add movies.</p>
         </div>
 
         <div class="nav-links">
@@ -104,7 +113,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
     </div>
 
-    <a href="logout.php" class="logout-btn">Logout</a> <!-- Logout button positioned at top-right -->
+    <a href="logout.php" class="logout-btn">Logout</a> 
 
     <div class="footer">
         <p>&copy; 2025 Cinema Booking System</p>

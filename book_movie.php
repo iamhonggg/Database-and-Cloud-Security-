@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'customer') {
 
 $conn = new mysqli("localhost", "root", "", "cinema_booking");
 
+function sanitize_input($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
 $user_id = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -15,9 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         exit();
     }
 
-    $movie_id = intval($_GET['movie_id']);
+    $movie_id = intval(sanitize_input($_GET['movie_id']));
 
-    // Get movie details to confirm
     $stmt = $conn->prepare("SELECT movie_name, showtime FROM movies WHERE movie_id = ?");
     $stmt->bind_param("i", $movie_id);
     $stmt->execute();
@@ -31,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $movie_id = intval($_POST['movie_id']);
+    $movie_id = intval(sanitize_input($_POST['movie_id']));
 
     $stmt = $conn->prepare("INSERT INTO bookings (user_id, movie_id) VALUES (?, ?)");
     $stmt->bind_param("ii", $user_id, $movie_id);
@@ -143,15 +146,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Book Movie</h2>
 
         <?php if (isset($success)): ?>
-            <div class="message success"><?php echo $success; ?></div>
+            <div class="message success"><?php echo sanitize_input($success); ?></div>
             <a href="customer_dashboard.php" class="back-link">Back to Dashboard</a>
         <?php elseif (isset($error)): ?>
-            <div class="message error"><?php echo $error; ?></div>
+            <div class="message error"><?php echo sanitize_input($error); ?></div>
             <a href="customer_dashboard.php" class="back-link">Back to Dashboard</a>
         <?php elseif ($_SERVER['REQUEST_METHOD'] === 'GET'): ?>
             <div class="movie-details">
-                <p><strong>Movie:</strong> <?php echo $movie['movie_name']; ?></p>
-                <p><strong>Showtime:</strong> <?php echo $movie['showtime']; ?></p>
+                <p><strong>Movie:</strong> <?php echo sanitize_input($movie['movie_name']); ?></p>
+                <p><strong>Showtime:</strong> <?php echo sanitize_input($movie['showtime']); ?></p>
             </div>
 
             <form method="POST">
