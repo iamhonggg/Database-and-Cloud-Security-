@@ -15,6 +15,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "Access denied.";
     exit();
 }
+
+require_once 'log_activity.php';
+
+$conn = new mysqli("localhost", "root", "", "cinema_booking");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+logActivity($conn, $_SESSION['user_id'], $_SESSION['role'], "Accessed admin dashboard");
 ?>
 
 <!DOCTYPE html>
@@ -109,6 +118,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
         <div class="nav-links">
             <a href="add_movie.php">Add Movie</a>
+            <a href="view_logs.php">View Admin Logs</a>
         </div>
 
     </div>

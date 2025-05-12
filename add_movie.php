@@ -18,6 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             $success = "Movie added successfully.";
+
+            $log_stmt = $conn->prepare("INSERT INTO logs (user_id, role, action, timestamp) VALUES (?, ?, ?, NOW())");
+            $action = "Added movie: " . $title;
+            $log_stmt->bind_param("iss", $_SESSION['user_id'], $_SESSION['role'], $action);
+            $log_stmt->execute();
+            
         } else {
             $error = "Error adding movie: " . $conn->error;
         }
