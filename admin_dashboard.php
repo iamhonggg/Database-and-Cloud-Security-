@@ -118,6 +118,7 @@ logActivity($conn, $_SESSION['user_id'], $_SESSION['role'], "Accessed admin dash
 
         <div class="nav-links">
             <a href="add_movie.php">Add Movie</a>
+            <a href="manage_movies.php">Manage Movies</a>
             <a href="view_logs.php">View Admin Logs</a>
         </div>
 
